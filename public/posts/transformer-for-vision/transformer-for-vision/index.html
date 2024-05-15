@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Transfiormer for vision | nThArOs Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Introduction Since the paper Attention Is All You Need Transformer have established themselves as the state of the art for natural language processing.
+In 2021, An Image Is Worth 16x16 Words succcesfully applied the transformer architecture to images.
+Firstly, this article walk through the fonctionnement of transformer and the attention principle.
+Then we will examine the specificities of vision transformer and their differences with CNNs.
+Transformer Nowaday transformer come in a lot of differents form.">
+<meta name="author" content="">
+<link rel="canonical" href="https://example.org/posts/transformer-for-vision/transformer-for-vision/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css" integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z&#43;V9&#43;cO1A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://example.org/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://example.org/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://example.org/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://example.org/apple-touch-icon.png">
+<link rel="mask-icon" href="https://example.org/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://example.org/posts/transformer-for-vision/transformer-for-vision/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+
+<meta property="og:title" content="Transfiormer for vision" />
+<meta property="og:description" content="Introduction Since the paper Attention Is All You Need Transformer have established themselves as the state of the art for natural language processing.
+In 2021, An Image Is Worth 16x16 Words succcesfully applied the transformer architecture to images.
+Firstly, this article walk through the fonctionnement of transformer and the attention principle.
+Then we will examine the specificities of vision transformer and their differences with CNNs.
+Transformer Nowaday transformer come in a lot of differents form." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.org/posts/transformer-for-vision/transformer-for-vision/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-05-14T12:00:17+02:00" />
+<meta property="article:modified_time" content="2024-05-14T12:00:17+02:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Transfiormer for vision"/>
+<meta name="twitter:description" content="Introduction Since the paper Attention Is All You Need Transformer have established themselves as the state of the art for natural language processing.
+In 2021, An Image Is Worth 16x16 Words succcesfully applied the transformer architecture to images.
+Firstly, this article walk through the fonctionnement of transformer and the attention principle.
+Then we will examine the specificities of vision transformer and their differences with CNNs.
+Transformer Nowaday transformer come in a lot of differents form."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://example.org/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Transfiormer for vision",
+      "item": "https://example.org/posts/transformer-for-vision/transformer-for-vision/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Transfiormer for vision",
+  "name": "Transfiormer for vision",
+  "description": "Introduction Since the paper Attention Is All You Need Transformer have established themselves as the state of the art for natural language processing.\nIn 2021, An Image Is Worth 16x16 Words succcesfully applied the transformer architecture to images.\nFirstly, this article walk through the fonctionnement of transformer and the attention principle.\nThen we will examine the specificities of vision transformer and their differences with CNNs.\nTransformer Nowaday transformer come in a lot of differents form.",
+  "keywords": [
+    
+  ],
+  "articleBody": "Introduction Since the paper Attention Is All You Need Transformer have established themselves as the state of the art for natural language processing.\nIn 2021, An Image Is Worth 16x16 Words succcesfully applied the transformer architecture to images.\nFirstly, this article walk through the fonctionnement of transformer and the attention principle.\nThen we will examine the specificities of vision transformer and their differences with CNNs.\nTransformer Nowaday transformer come in a lot of differents form. In this article we will only talk about “basic” transformer as there were introduced in Attention Is All You Need.\nThe Transformer model has an encoder-decoder architecture and rely almost exclusively on the attention mechanism.\nTransformer Encoder : The function of the transformer Encoder is understand and extract relevant information from the input sequence. It then outputs a continous representation (embedded) of the input sequence to the decoder. The encoder blocks begins with the inputs. Here the entire sequence is fed at once.\nThey are then embedded at the input “input embedding” block.\nThen a “positional encoding” is added to each element in the sequence.\n(In NLP in allow to understand the position of each word in a sentence).\n(Embedding and positional encoding are also required for vision transformer)\nThen the “Add \u0026 Norm” block takes in a residual connection of the original element embedding, add it to the embedding from the multi-head attention, and then normalize it. Then this is fed to a “feed forward” block.\nThe multi-head attention and feed forward blocks are repeated n times (Hyperparameters, 6 in the orginal paper).\nDecoder : The function of the transformer Decoder is to retrieve information from the encoded represention. The first multi-head attention layer is masked to prevent positions from attendig to the future.\nAttention As you can see on the schema attention is used in the Transformer in 3 places:\nIn the Encoder : The input sequence pays attention to itself\nIn the Decoder : The target sequence pay attention to itself but it is masked to prevent the model from attending the future position.\nEncoder-Decoder in the Decoder : The target sequence pays attention to the input sequence\nAttention : Attention is a mechanism in neural network that a model can learn to make predictions by selectively attending to a given set of data. The amount of attention is quantified by learned weights and thus the output is usually formed as a weighted average.\nSelf-attention: Self-attention is a type of attention mechanism where the model makes prediction for one part of a data sample using other parts of the observation about the same sample.\nThere are various forms of attention, Transformer relies on the scaled dot-product attention.\nScaled dot-product attention Scaled dot-product attention utilizes three weight matrices, referred to as Wq, Wk and Wv, wich are adjusted as model parameter during training. These matrcies serve to project the input into query, key, and value components of the\nScaled dot-product attention utilize a query matrix Q, a key matrix k and a value matrix V. It start by\nMulti-head attention GitHub Pages is a static site hosting service that takes HTML, CSS, and JavaScript files straight from a repository on GitHub, optionally runs the files through a build process, and publishes a website.\nIn addition to that, it’s also free.\nThe requirements for using GitHub pages in our case are:\nTo publish a user site, you must create a repository owned by your personal account that’s named .github.io.\nThe source files for a project site are stored in the same repository as their project.\nYou can only create one user or organization site for each account on GitHub.\nThere are also some limitations outlined here.\nGitHub provides a good quick-start, so I won’t go much in detail about that. It usually comes down to these steps:\nCreate a repository and name it username.github.io as the repository name. (In my case, it will be magsther.github.io) The website will be published at https://magsther.github.io/ Clone the repository to your computer. Cd into the folder Add an index.html Add, commit, and push your changes Enable and configure Pages (in GitHub) After a little while, you can visitusername.github.io to view your new website.\nNext step is to setup a GitHub Pages site with Hugo.\n",
+  "wordCount" : "706",
+  "inLanguage": "en",
+  "datePublished": "2024-05-14T12:00:17+02:00",
+  "dateModified": "2024-05-14T12:00:17+02:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://example.org/posts/transformer-for-vision/transformer-for-vision/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "nThArOs Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://example.org/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://example.org/" accesskey="h" title="nThArOs Blog (Alt + H)">nThArOs Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Transfiormer for vision
+    </h1>
+    <div class="post-meta"><span title='2024-05-14 12:00:17 +0200 +0200'>May 14, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>Since the paper <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a> Transformer have established themselves as the state of the art for natural language processing.</p>
+<p>In 2021, <a href="https://arxiv.org/abs/2010.11929">An Image Is Worth 16x16 Words</a> succcesfully applied the transformer architecture to images.</p>
+<ul>
+<li>
+<p>Firstly, this article walk through the fonctionnement of transformer and the attention principle.</p>
+</li>
+<li>
+<p>Then we will examine the specificities of vision transformer and their differences with CNNs.</p>
+</li>
+</ul>
+<h3 id="transformer">Transformer<a hidden class="anchor" aria-hidden="true" href="#transformer">#</a></h3>
+<p>Nowaday transformer come in a lot of differents form. In this article we will only talk about &ldquo;basic&rdquo; transformer as there were introduced in <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a>.</p>
+<p>The Transformer model has an encoder-decoder architecture and rely almost exclusively on the attention mechanism.</p>
+<h3 id="transformer-1">Transformer<a hidden class="anchor" aria-hidden="true" href="#transformer-1">#</a></h3>
+<p><img loading="lazy" src="../Images/transformer.png" alt="transformer"  />
+</p>
+<ul>
+<li><strong>Encoder</strong> : The function of the transformer Encoder is understand and extract relevant information from the input sequence.
+It then outputs a continous representation (embedded) of the input sequence to the decoder.</li>
+</ul>
+<p><img loading="lazy" src="../Images/transformer_encoder.png" alt="transformer"  />
+</p>
+<p>The encoder blocks begins with the inputs. Here the entire sequence is fed at once.<br>
+They are then embedded at the input <strong>&ldquo;input embedding&rdquo; block</strong>.<br>
+Then a <strong>&ldquo;positional encoding&rdquo;</strong> is added to each element in the sequence.<br>
+<em>(In NLP in allow to understand the position of each word in a sentence)</em>.<br>
+<em>(Embedding and positional encoding are also required for vision transformer)</em></p>
+<p>Then the <strong>&ldquo;Add &amp; Norm&rdquo; block</strong> takes in a residual connection of the original element embedding, add it to the embedding from the multi-head attention, and then normalize it.
+Then this is fed to a  <strong>&ldquo;feed forward&rdquo; block</strong>.</p>
+<p>The multi-head attention and feed forward blocks are repeated n times (Hyperparameters, 6 in the orginal paper).</p>
+<ul>
+<li><strong>Decoder</strong> : The function of the transformer Decoder is to retrieve information from the encoded represention.</li>
+</ul>
+<p><img loading="lazy" src="../Images/transformer_decoder.png" alt="transformer"  />
+</p>
+<p>The first multi-head attention layer is masked to prevent positions from attendig to the future.</p>
+<p><img loading="lazy" src="../Images/transformer_attention.png" alt="transformer"  />
+</p>
+<h3 id="attention">Attention<a hidden class="anchor" aria-hidden="true" href="#attention">#</a></h3>
+<p>As you can see on the schema attention is used in the Transformer in 3 places:</p>
+<ul>
+<li>
+<p>In the Encoder : The input sequence pays attention to itself</p>
+</li>
+<li>
+<p>In the Decoder : The target sequence pay attention to itself but it is masked to prevent the model from attending the future position.</p>
+</li>
+<li>
+<p>Encoder-Decoder in the Decoder : The target sequence pays attention to the input sequence</p>
+</li>
+</ul>
+<p><strong>Attention</strong> : Attention is a mechanism in neural network that a model can learn to make predictions by selectively attending to a given set of data. The amount of attention is quantified by learned weights and thus the output is usually formed as a weighted average.</p>
+<p><strong>Self-attention</strong>: Self-attention is a <strong>type</strong> of attention mechanism where the model makes prediction for one part of a data sample using other parts of the observation about the same sample.</p>
+<p>There are various forms of attention, Transformer relies on the scaled dot-product attention.</p>
+<h3 id="scaled-dot-product-attention">Scaled dot-product attention<a hidden class="anchor" aria-hidden="true" href="#scaled-dot-product-attention">#</a></h3>
+<p><img loading="lazy" src="../Images/attention.png" alt="Scaled dot-product attention"  />
+</p>
+<p>Scaled dot-product attention utilizes three weight matrices, referred to as Wq, Wk and Wv, wich are adjusted as model parameter during training. These matrcies serve to project the input into query, key, and value components of the</p>
+<p>Scaled dot-product attention utilize a query matrix Q, a key matrix k and a value matrix V.
+It start by</p>
+<h3 id="multi-head-attention">Multi-head attention<a hidden class="anchor" aria-hidden="true" href="#multi-head-attention">#</a></h3>
+<p><em><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages">GitHub Pages</a> is a static site hosting service that takes HTML, CSS, and JavaScript files straight from a repository on GitHub, optionally runs the files through a build process, and publishes a website.</em></p>
+<p>In addition to that, it&rsquo;s also free.</p>
+<p>The requirements for using GitHub pages in our case are:</p>
+<ul>
+<li>
+<p>To publish a user site, you must create a repository owned by your personal account that&rsquo;s named <code>&lt;username&gt;.github.io</code>.</p>
+</li>
+<li>
+<p>The source files for a project site are stored in the same repository as their project.</p>
+</li>
+<li>
+<p>You can only create one user or organization site for each account on GitHub.</p>
+</li>
+</ul>
+<p>There are also some limitations outlined <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#usage-limits">here</a>.</p>
+<p>GitHub provides a good <a href="https://docs.github.com/en/pages/quickstart">quick-start</a>, so I won&rsquo;t go much in detail about that.
+It usually comes down to these steps:</p>
+<ol>
+<li>Create a repository and name it <code>username.github.io</code> as the repository name. (In my case, it will be <code>magsther.github.io</code>) The website will be published at <a href="https://magsther.github.io/">https://magsther.github.io/</a></li>
+<li>Clone the repository to your computer.</li>
+<li>Cd into the folder</li>
+<li>Add an index.html</li>
+<li>Add, commit, and push your changes</li>
+<li>Enable and configure Pages (in GitHub)</li>
+</ol>
+<p>After a little while, you can visitusername.github.io to view your new website.</p>
+<p>Next step is to setup a GitHub Pages site with <code>Hugo</code>.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://example.org/">nThArOs Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

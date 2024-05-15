@@ -1,4 +1,8 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'nThArOs Blog'
 theme = 'PaperMod'
+		
+[params]
+  subtitle = 'The Best Widgets on Earth'
+

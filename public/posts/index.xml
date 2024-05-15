@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on My New Hugo Site</title>
+    <title>Posts on nThArOs Blog</title>
     <link>https://example.org/posts/</link>
-    <description>Recent content in Posts on My New Hugo Site</description>
-    <generator>Hugo -- 0.125.7</generator>
+    <description>Recent content in Posts on nThArOs Blog</description>
+    <generator>Hugo -- 0.126.0</generator>
     <language>en-us</language>
-    <lastBuildDate></lastBuildDate>
+    <lastBuildDate>Tue, 14 May 2024 12:00:17 +0200</lastBuildDate>
     <atom:link href="https://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Transfiormer for vision</title>
+      <link>https://example.org/posts/transformer-for-vision/transformer-for-vision/</link>
+      <pubDate>Tue, 14 May 2024 12:00:17 +0200</pubDate>
+      <guid>https://example.org/posts/transformer-for-vision/transformer-for-vision/</guid>
+      <description>Introduction Since the paper Attention Is All You Need Transformer have established themselves as the state of the art for natural language processing.
+In 2021, An Image Is Worth 16x16 Words succcesfully applied the transformer architecture to images.
+Firstly, this article walk through the fonctionnement of transformer and the attention principle.
+Then we will examine the specificities of vision transformer and their differences with CNNs.
+Transformer Nowaday transformer come in a lot of differents form.</description>
+    </item>
   </channel>
 </rss>
